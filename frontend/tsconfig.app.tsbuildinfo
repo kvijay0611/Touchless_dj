@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/spotify.ts","./src/types.ts","./src/vite-env.d.ts","./src/audio/djengine.ts","./src/audio/vinyl-worklet.ts","./src/components/deck.tsx","./src/components/handcontrol.tsx","./src/components/playlistpanel.tsx","./src/components/waveform.tsx"],"version":"5.9.3"}
