@@ -36,7 +36,12 @@ export class DJEngine {
   private async ensureContext() {
     if (!this.ctx) {
       this.ctx = new AudioContext()
-      await this.ctx.audioWorklet.addModule(new URL('./vinyl-worklet.ts', import.meta.url))
+      // Must be plain .js, not .ts: Vite's production build inlines files referenced this
+      // way as a raw asset (not through its TS pipeline) and guesses the MIME type from
+      // the extension. ".ts" is also the official extension for MPEG-2 Transport Stream
+      // video, so browsers reject it as "video/mp2t" instead of JavaScript in prod builds
+      // (dev mode hid this because Vite's dev server transpiles .ts on every request).
+      await this.ctx.audioWorklet.addModule(new URL('./vinyl-worklet.js', import.meta.url))
       this.master = this.ctx.createGain()
       this.master.gain.value = .92
       this.limiter = this.ctx.createDynamicsCompressor()
